@@ -1,0 +1,33 @@
+{% include 'header.html' %}
+
+
+<main class="flex-grow-1">
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Verify your Account</h2>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+          <form method="POST">
+        {% for error in form.ver_code.errors %}
+  <div class="text-danger">{{ error }}</div>
+        {% endfor %}
+
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.ver_code.label(class="form-label") }}
+            {{ form.ver_code(class="form-control") }}
+        </div>
+
+        <div class="text-center">
+            {{ form.submit(class="btn btn-primary w-100") }}
+        </div>
+    </form>
+
+    </div>
+    </div>
+    </div>
+</main>
+
+
+{% include 'footer.html' %}

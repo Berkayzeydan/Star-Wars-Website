@@ -1,0 +1,80 @@
+{% include 'header.html' %}
+    <div class="container mt-5">
+  <h2 class="text-center mb-4 text-light">Frequently Asked Questions</h2>
+
+  <div class="accordion" id="faqAccordion">
+    <div class="accordion-item bg-dark text-light border-secondary">
+      <h2 class="accordion-header" id="faq1">
+        <button class="accordion-button bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+          What is this website about?
+        </button>
+      </h2>
+      <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          This platform allows users to sign up, verify their email, and securely access account-based features.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item bg-dark text-light border-secondary">
+      <h2 class="accordion-header" id="faq2">
+        <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+          How do I verify my email?
+        </button>
+      </h2>
+      <div id="collapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          After signing up, you’ll receive a verification code by email. Just enter it on the verification page to complete your registration.
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item bg-dark text-light border-secondary">
+      <h2 class="accordion-header" id="faq3">
+        <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+          Is my data secure?
+        </button>
+      </h2>
+      <div id="collapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Absolutely. We hash passwords, use session-based storage, and send confirmation links to validate access. Security is built-in from the ground up.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <h2 class="text-center text-light mb-4">Gallery</h2>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card bg-dark border-secondary">
+        <img src="{{ url_for('static', filename='images/image1.jpg') }}" class="card-img-top" alt="Image 1">
+        <div class="card-body">
+          <p class="card-text text-light">Image caption or description.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card bg-dark border-secondary">
+        <img src="{{ url_for('static', filename='images/image2.jpg') }}" class="card-img-top" alt="Image 2">
+        <div class="card-body">
+          <p class="card-text text-light">Another cool photo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card bg-dark border-secondary">
+        <img src="{{ url_for('static', filename='images/image3.jpg') }}" class="card-img-top" alt="Image 3">
+        <div class="card-body">
+          <p class="card-text text-light">Yet another awesome thing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% include 'footer.html' %}

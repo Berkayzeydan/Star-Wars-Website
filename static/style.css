@@ -1,0 +1,74 @@
+body {
+    background-color: #1f1f1f;      /* dark grey */
+    color: #f5f5f5;                /* light text */
+    font-family: 'Segoe UI', sans-serif;
+}
+
+a {
+    color: #1f1f1f;
+}
+
+a:hover {
+    color: #1f1f1f;
+}
+
+header, footer {
+    background-color: #2a2a2a;
+    color: #f5f5f5;
+    padding: 1rem;
+}
+
+.container {
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.btn-primary {
+    background-color: #5c5c5c;   /* custom grey */
+    border-color: #5c5c5c;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #777777;
+    border-color: #777777;
+}
+
+/* 🔹 Override outline-primary */
+.btn-outline-primary {
+    color: #cccccc;
+    border-color: #cccccc;
+}
+
+.btn-outline-primary:hover {
+    background-color: #666;
+    color: #fff;
+    border-color: #666;
+}
+
+
+.nav-link {
+    color: #dddddd !important;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+    color: #ffffff !important;
+    text-decoration: underline;
+}
+
+.text-light-gray {
+    color: #b0b0b0; /* soft light gray */
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25); /* white glow */
+  border-color: #fff;
+  outline: none;
+}
+
+
+

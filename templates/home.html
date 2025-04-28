@@ -1,0 +1,26 @@
+{% include 'header.html' %}
+
+<main class="flex-grow-1">
+    <h1 class="text-center">Homepage</h1>
+    {% if current_user.is_authenticated %}
+  <div class="container mt-5">
+    <h2 class="text-light text-center mb-4">Exclusive Video for Members</h2>
+
+    <div class="ratio ratio-16x9 rounded overflow-hidden shadow">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/vVkUglhoon0?si=48h2ffHppf_vxFaj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </div>
+    {% else %}
+    <div class="container mt-5">
+        <p>To see the super cool video login or signup!!!!</p>
+    </div>
+{% endif %}
+
+
+</main>
+
+
+
+
+
+{% include 'footer.html' %}
