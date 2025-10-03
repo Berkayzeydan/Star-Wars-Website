@@ -1,0 +1,72 @@
+{% include 'header.html' %}
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 col-xl-7">
+        <div class="card rounded-3 bg-dark text-light">
+          <div class="card-body p-4">
+
+            <h4 class="text-center my-3 pb-3">Tasks To Conquer The Universe</h4>
+
+        <form method="POST" action="{{ url_for('conquer') }}"
+              class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
+
+          <div class="col-12">
+            <div class="form-outline">
+              <input type="text" id="addtask" name="title"
+                     class="form-control bg-dark text-light border-light"
+                     placeholder="Enter a task here" required />
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button type="submit" name="action" value="save" class="btn btn-white">Add Task</button>
+          </div>
+        </form>
+
+
+            <table class="table table-dark table-striped mb-4">
+              <thead>
+                <tr>
+                  <th scope="col">No.</th>
+                  <th scope="col">Todo item</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for task in tasks %}
+
+                <tr>
+                  <th scope="row">{{ loop.index }}</th>
+                  <td>{{ task.task_name }}</td>
+                  <td>{{  task.status.value}}</td>
+                  <td class="d-flex gap-2">
+                  <form method="POST" action="{{ url_for('conquer') }}">
+                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                    <button type="submit" name="action" value="delete" class="btn btn-white ms-1">Delete</button>
+                  </form>
+
+                  <form method="POST" action="{{ url_for('conquer') }}">
+                    <input type="hidden" name="task_id" value="{{ task.id }}">
+                    <button type="submit" name="action" value="finish" class="btn btn-white ms-1">
+                      Finished
+                    </button>
+                  </form>
+                </td>
+              {% endfor %}
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+{% include 'footer.html' %}

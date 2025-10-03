@@ -1,8 +1,10 @@
+import enum
+
 from flask import Flask, render_template, request, url_for, redirect, flash, send_from_directory, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
-from sqlalchemy import Integer, String, select
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+from sqlalchemy import Integer, String, select, ForeignKey, Enum, func
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from dotenv import load_dotenv
 import os
@@ -20,8 +22,28 @@ app = Flask(__name__)
 app.config['SECRET_KEY']= os.environ['SECRET_KEY']
 
 db = SQLAlchemy()
+
+
 class Base(DeclarativeBase):
     pass
+
+
+class MissionStatus(enum.Enum):
+    in_progress = "in progress"
+    finished = "finished"
+
+
+class ToDo(Base):
+    __tablename__ = 'todo'
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"), index=True
+    )
+    task_name: Mapped[str] = mapped_column(String(150), nullable=False)
+    status: Mapped[MissionStatus] = mapped_column(
+        Enum(MissionStatus, name="mission_status", default=MissionStatus.in_progress)
+    )
+    user: Mapped["User"] = relationship(back_populates="tasks")
 
 class User(Base, UserMixin):
     __tablename__ = 'users'
@@ -29,6 +51,9 @@ class User(Base, UserMixin):
     name: Mapped[str] = mapped_column(String(150), nullable=False)
     email: Mapped[str] = mapped_column(String(150), unique=True, nullable=False)
     password: Mapped[str] = mapped_column(String(200), nullable=False)
+    tasks: Mapped[list["ToDo"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan", passive_deletes=True
+    )
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # or PostgreSQL/MySQL URI
@@ -133,6 +158,37 @@ def logout():
     logout_user()
     session.clear()
     return redirect(url_for('home'))
+
+
+@app.route("/conquer", methods=['GET', 'POST'])
+@login_required
+def conquer():
+    if request.method == "POST":
+        action = request.form.get("action")
+        if action == "save":
+            title = (request.form.get("title") or "").strip()
+            if title:
+                new_task = ToDo(
+                    task_name=title,
+                    user_id=current_user.id,
+                    status=MissionStatus.in_progress
+                )
+                db.session.add(new_task)
+                db.session.commit()
+        elif action:
+            task_id = request.form.get("task_id")
+            task = db.session.query(ToDo).filter_by(id=task_id, user_id=current_user.id).first()
+            if task:
+                if action == "delete":
+                    db.session.delete(task)
+                    db.session.commit()
+                elif action == "finish":
+                    task.status = MissionStatus.finished
+                    db.session.commit()
+        return redirect(url_for("conquer"))
+    tasks = db.session.query(ToDo).filter_by(user_id=current_user.id).order_by(ToDo.id.asc()).all()
+
+    return render_template("conquer.html", tasks=tasks)
 
 
 @app.route("/pricing")

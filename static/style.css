@@ -36,6 +36,11 @@ header, footer {
     border-color: #777777;
 }
 
+.form-control::placeholder {
+  color: #ffffff;
+  opacity: 1;
+}
+
 /* 🔹 Override outline-primary */
 .btn-outline-primary {
     color: #cccccc;
@@ -46,6 +51,24 @@ header, footer {
     background-color: #666;
     color: #fff;
     border-color: #666;
+}
+
+.btn-white {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.btn-white:hover,
+.btn-white:focus {
+  background-color: #e6e6e6;  /* subtle grey on hover */
+  border-color: #e6e6e6;
+  color: #000000;
+}
+
+
+.btn-warning:hover {
+  background-color: #777777;
+  border-color: #777777;
 }
 
 
